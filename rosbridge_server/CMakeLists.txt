@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.5)
 project(rosbridge_server)
 
+# CMake >= 3.27 + ROS2 Humble:
+# Set CMake policy CMP0148 on finding Python to avoid:
+# "Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+# are removed."
+if(CMAKE_MINOR_VERSION VERSION_GREATER_EQUAL 27)
+  cmake_policy(SET CMP0148 OLD)
+endif()
+
 find_package(ament_cmake_ros REQUIRED)
 find_package(ament_cmake_core REQUIRED)
 find_package(ament_cmake_python REQUIRED)
