@@ -88,7 +88,7 @@ class TestMultiPublisher(unittest.TestCase):
         msg_type = "std_msgs/String"
         othertypes = [
             "geometry_msgs/Pose",
-            "actionlib_msgs/GoalStatus",
+            "action_msgs/GoalStatus",
             "geometry_msgs/WrenchStamped",
             "stereo_msgs/DisparityImage",
             "nav_msgs/OccupancyGrid",
@@ -109,7 +109,7 @@ class TestMultiPublisher(unittest.TestCase):
         """Make sure that publishing works"""
         topic = "/test_publish"
         msg_type = "std_msgs/String"
-        msg = {"data": "why halo thar"}
+        msg = {"data": "why hello there"}
 
         received = {"msg": None}
 
@@ -133,7 +133,7 @@ class TestMultiPublisher(unittest.TestCase):
         """Make sure that publishing works"""
         topic = "/test_publish_twice"
         msg_type = "std_msgs/String"
-        msg = {"data": "why halo thar"}
+        msg = {"data": "why hello there"}
 
         received = {"msg": None}
 
