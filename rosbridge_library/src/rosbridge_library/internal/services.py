@@ -115,7 +115,7 @@ def call_service(
     service: str,
     args: Optional[dict] = None,
     server_timeout_time: float = 1.0,
-    sleep_time: float = 0.001,
+    sleep_time: float = 0.020,
 ) -> dict:
     # Given the service name, fetch the type and class of the service,
     # and a request instance
@@ -146,9 +146,19 @@ def call_service(
         raise InvalidServiceException(service)
 
     future = client.call_async(inst)
+    start = time.time()
+    service_call_timeout = 10
+    service_call_timeout_warned = False
     while rclpy.ok() and not future.done():
         time.sleep(sleep_time)
+        if time.time() - start > service_call_timeout:
+            if not service_call_timeout_warned:
+                service_call_timeout_warned = True
+                node_handle.get_logger().warning(f"Service call is taking more than {service_call_timeout}s: {service_type}")
     result = future.result()
+
+    if service_call_timeout_warned:
+        node_handle.get_logger().warning(f"Service call took  {time.time() - start}s: {service_type}")
 
     node_handle.destroy_client(client)
     if result is not None:

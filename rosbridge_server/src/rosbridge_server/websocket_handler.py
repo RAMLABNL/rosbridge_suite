@@ -147,6 +147,9 @@ class RosbridgeWebSocket(WebSocketHandler):
             cls.clients_connected += 1
             if cls.client_manager:
                 cls.client_manager.add_client(self.client_id, self.request.remote_ip)
+                cls.node_handle.get_logger().info(
+                    f"Client {self.client_id} connected from {self.request.remote_ip}"
+                )
         except Exception as exc:
             cls.node_handle.get_logger().error(
                 f"Unable to accept incoming connection.  Reason: {exc}"
@@ -189,7 +192,7 @@ class RosbridgeWebSocket(WebSocketHandler):
             await self.write_message(message, binary)
         except WebSocketClosedError:
             cls.node_handle.get_logger().warn(
-                "WebSocketClosedError: Tried to write to a closed websocket",
+                f"WebSocketClosedError: Tried to write to a closed websocket of client {self.client_id}",
                 throttle_duration_sec=1.0,
             )
             # If we end up here, a client has disconnected before its message callback(s) could be removed.
