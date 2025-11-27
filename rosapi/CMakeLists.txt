@@ -22,7 +22,7 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
-if(BUILD_TESTING)
+if (BUILD_TESTING!=OFF)
   find_package(ament_cmake_pytest REQUIRED)
   ament_add_pytest_test(${PROJECT_NAME}_test_stringify_field_types test/test_stringify_field_types.py)
   ament_add_pytest_test(${PROJECT_NAME}_test_typedefs test/test_typedefs.py)

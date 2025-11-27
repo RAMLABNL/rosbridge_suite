@@ -9,7 +9,7 @@ ament_python_install_package(
 
 ament_package()
 
-if (BUILD_TESTING)
+if (BUILD_TESTING!=OFF)
   ament_add_ros_isolated_pytest_test(test_capabilities "test/capabilities/")
   ament_add_ros_isolated_pytest_test(test_internal "test/internal/")
 

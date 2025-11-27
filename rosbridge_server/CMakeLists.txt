@@ -20,7 +20,7 @@ install(FILES
   DESTINATION share/${PROJECT_NAME}/launch
 )
 
-if(BUILD_TESTING)
+if (BUILD_TESTING!=OFF)
   find_package(launch_testing_ament_cmake REQUIRED)
   add_launch_test(test/websocket/advertise_action.test.py)
   add_launch_test(test/websocket/advertise_action_feedback.test.py)
